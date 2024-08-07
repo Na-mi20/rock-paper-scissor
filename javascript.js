@@ -61,3 +61,4 @@ else {
 }
 
 playGame();
+/*check out consol for the results*/
