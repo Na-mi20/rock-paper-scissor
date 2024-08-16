@@ -1,64 +1,79 @@
-let humanScore=0;
-let computerScore=0;
-
-
-
-
-function getComputerChoice(){
-const computerList = ["rock", "paper", "scissor"];
-const computerResult = computerList[Math.floor(Math.random() * computerList.length)];
-return computerResult; }
-
-function getHumanChoice(){
-
-  const humanInput=prompt("").toLowerCase();
-  if (humanInput==="rock"||humanInput==="paper"||humanInput==="scissor"){
-  return humanInput;}
-  else{
-     return prompt("Enter the correct string",humanInput);
-  }
+ let humanScore=0;
+ let computerScore=0;
+function computerChoice(){
+ const str = ["rock", "paper", "scissor"];
+ const choice=str[Math.floor(Math.random()*str.length)];
+ return choice; 
 }
-function playRound(humanChoice,computerChoice){
-  
-    const humanConvert=humanChoice[0].toUpperCase()+humanChoice.slice(1);
-    const computerConvert =computerChoice[0].toUpperCase() + computerChoice.slice(1);
-    if(humanChoice==="rock" &&  computerChoice==="scissor"|| humanChoice==="paper" &&computerChoice==="rock"||humanChoice==="scissor"&&computerChoice==="paper"){
-      console.log("You won! "+ humanConvert + " beats " + computerConvert);
-      humanScore+=1;
-    }
-    else if(humanChoice===computerChoice){
-      console.log("No one won! It is draw");
-    }
+
+let contain=document.querySelector("div");
+let rock=document.querySelector("#rock");
+let paper = document.querySelector("#paper");
+let scissor = document.querySelector("#scissor");
+
+
+rock.textContent="rock";
+paper.textContent = "paper";
+scissor.textContent = "scissor";
+
+rock.addEventListener("click",() =>{
+   playRound(humanFinal="rock",computerFinal=computerChoice());
+
+})
+paper.addEventListener("click", () => {
+  playRound((humanFinal = "paper"), computerFinal=computerChoice());
+});
+
+scissor.addEventListener("click", () => {
+  playRound((humanFinal = "scissor"), computerFinal=computerChoice());
+
+})
+
+
+function playRound(humanSelection, computerSelection) {
+  let humanResult = humanSelection[0] + humanSelection.slice(1);
+  let computerResult = computerSelection[0] + computerSelection.slice(1);
+  if (
+    (humanSelection === "rock" && computerSelection === "scissor") ||
+    (humanSelection === "scissor" && computerSelection === "paper") ||
+    (humanSelection === "paper" && computerSelection === "rock")
+  ) {humanScore += 1
+   computerScore+=0
     
-    else{
-      console.log("You lose! " + computerConvert + " beats " + humanConvert);
-      computerScore+=1;
-    }
-   
+    
+    contain.textContent =
+      "You won! " + humanResult + " beats " + computerResult + " Human's score is "+ humanScore + " & " + "Computer's score is " + computerScore;
   
-   
-   
-}
+  } else if(humanSelection===computerSelection){
+   humanScore += 0;
+   computerScore += 0;
+   contain.textContent = "It is a draw! " + humanResult + " does not beat " + computerResult + " Human's score is " + humanScore + " & " + "Computer's score is " + computerScore;
 
-function playGame(){
-
-for (var i=1;i<=5;i++){
-
-  const humanSelection = getHumanChoice();
-  const computerSelection = getComputerChoice();
+  }
   
-playRound(humanSelection, computerSelection);
-}
-if (humanScore > computerScore) {
-  console.log("Human won with the score of " + humanScore);
-} 
-else if(humanScore===computerScore){
-  console.log("It is a draw! Start again");
-}
-else {
-  console.log("Computer won with the score of " + computerScore);
-}
-}
+  
+  else {
+    computerScore += 1;
+    humanScore += 0;
+    contain.textContent =
 
-playGame();
-/*check out consol for the results*/
+      "You lost! " + computerResult + " beats " + humanResult +" Human's score is " +humanScore +" & " +
+      "Computer's score is " +computerScore;
+     }
+   
+   if(humanScore===5||computerScore===5){
+      rock.disabled=true;
+      paper.disabled = true;
+      scissor.disabled = true;
+     contain.textContent=humanScore>computerScore?"Human has won with the score of 5":"Computer has won with the score of 5"
+   }}
+
+
+
+
+
+  
+
+
+
+
