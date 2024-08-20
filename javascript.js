@@ -1,79 +1,72 @@
- let humanScore=0;
- let computerScore=0;
+
+let content=document.querySelector(".content");
+let btn = document.querySelectorAll("button");
+let humanScore=0;
+let computerScore=0;
+let humanHeading = document.createElement("h1");
+  let computerHeading = document.createElement("h1");
+
 function computerChoice(){
- const str = ["rock", "paper", "scissor"];
- const choice=str[Math.floor(Math.random()*str.length)];
- return choice; 
+  const str=["rock","paper","scissor"];
+  const choice=str[Math.floor(Math.random()*str.length)]
+  return choice;
+}
+function btnDisable() {
+  btn.forEach((button) => {
+    button.disabled = true;
+  });
 }
 
-let contain=document.querySelector("div");
-let rock=document.querySelector("#rock");
-let paper = document.querySelector("#paper");
-let scissor = document.querySelector("#scissor");
-
-
-rock.textContent="rock";
-paper.textContent = "paper";
-scissor.textContent = "scissor";
-
-rock.addEventListener("click",() =>{
-   playRound(humanFinal="rock",computerFinal=computerChoice());
-
-})
-paper.addEventListener("click", () => {
-  playRound((humanFinal = "paper"), computerFinal=computerChoice());
-});
-
-scissor.addEventListener("click", () => {
-  playRound((humanFinal = "scissor"), computerFinal=computerChoice());
-
-})
-
-
-function playRound(humanSelection, computerSelection) {
-  let humanResult = humanSelection[0] + humanSelection.slice(1);
-  let computerResult = computerSelection[0] + computerSelection.slice(1);
-  if (
-    (humanSelection === "rock" && computerSelection === "scissor") ||
-    (humanSelection === "scissor" && computerSelection === "paper") ||
-    (humanSelection === "paper" && computerSelection === "rock")
-  ) {humanScore += 1
-   computerScore+=0
+function playRound(humanSelection){
+  let computerFinal = computerChoice();
+  let humanResult=humanSelection[0].toUpperCase()+humanSelection.slice(1);
+  let computerResult = computerFinal[0] .toUpperCase()+ computerFinal.slice(1);
+  if((humanSelection==="paper" && computerFinal==="rock")||(humanSelection==="rock" && computerFinal==="scissor")||(humanSelection==="scissor" && computerFinal==="paper")){
+    humanScore+=1;
+    computerScore+=0;
     
-    
-    contain.textContent =
-      "You won! " + humanResult + " beats " + computerResult + " Human's score is "+ humanScore + " & " + "Computer's score is " + computerScore;
-  
-  } else if(humanSelection===computerSelection){
-   humanScore += 0;
-   computerScore += 0;
-   contain.textContent = "It is a draw! " + humanResult + " does not beat " + computerResult + " Human's score is " + humanScore + " & " + "Computer's score is " + computerScore;
 
+  }
+  else if(humanSelection===computerFinal){
+    humanScore+=0;
+    computerScore+=0;
+   
+  }
+  else{
+    humanScore+=0;
+    computerScore+=1;
+    
   }
   
   
-  else {
-    computerScore += 1;
-    humanScore += 0;
-    contain.textContent =
+  humanHeading.textContent = `Human-${humanScore}`;
+  computerHeading.textContent =`Computer- ${computerScore}`;
+  content.appendChild(humanHeading);
+  content.appendChild(computerHeading);
 
-      "You lost! " + computerResult + " beats " + humanResult +" Human's score is " +humanScore +" & " +
-      "Computer's score is " +computerScore;
+  }
+
+btn.forEach((button)=>{
+  button.addEventListener("click",(event)=>{
+
+ if(event.target.id="rock"){
+   playRound(humanFinal="rock");
+ }
+ else if ((event.target.id = "paper")) {
+    playRound(humanFinal="paper");
+  }
+   else  {
+     playRound(humanFinal="scissor");
+   }  if (humanScore === 5 || computerScore === 5) {
+     btnDisable();
+     if (humanScore > computerScore) {
+       content.textContent = `Human won with the score of ${humanScore}`;
+     } else {
+       content.textContent = `Computer won with the score of ${computerScore}`;
      }
+   }
    
-   if(humanScore===5||computerScore===5){
-      rock.disabled=true;
-      paper.disabled = true;
-      scissor.disabled = true;
-     contain.textContent=humanScore>computerScore?"Human has won with the score of 5":"Computer has won with the score of 5"
-   }}
-
-
-
-
-
+   })
+ 
+;})
   
-
-
-
-
